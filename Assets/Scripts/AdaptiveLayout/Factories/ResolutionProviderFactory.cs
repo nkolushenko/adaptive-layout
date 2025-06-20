@@ -6,12 +6,12 @@ namespace AdaptiveLayout
     
     public interface IResolutionProviderFactory
     {
-        public IResolutionProvider GetResolutionProvider();
+        public IResolutionProvider Create();
     }
     
     public class ResolutionProviderFactory : IResolutionProviderFactory
     {
-        public IResolutionProvider GetResolutionProvider()
+        public IResolutionProvider Create()
         {
 #if UNITY_IOS
             return new IOSResolutionProvider();
