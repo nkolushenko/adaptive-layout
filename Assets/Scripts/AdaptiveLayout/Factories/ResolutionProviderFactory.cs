@@ -14,11 +14,11 @@ namespace AdaptiveLayout
         public IResolutionProvider Create()
         {
 #if UNITY_IOS
-            return new IOSResolutionProvider();
+            return new iOSResolutionProvider();
 #elif UNITY_ANDROID
             return new AndroidResolutionProvider();
 #else
-            return new DefaultResolutionProvider();
+            return new EditorResolutionProvider();
 #endif
         }
     }

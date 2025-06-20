@@ -1,10 +1,6 @@
 using UnityEngine;
 using UnityEngine.UI;
 
-#if UNITY_EDITOR
-#define DEBUG_CANVAS_SCALER
-#endif
-
 namespace AdaptiveLayout
 {
     [RequireComponent(typeof(CanvasScaler))]
@@ -31,7 +27,7 @@ namespace AdaptiveLayout
             canvasScaler.referenceResolution = _resolutionProvider.GetReferenceResolution();
         }
 
-#if DEBUG_CANVAS_SCALER
+#if UNITY_EDITOR
         private void Update()
         {
             DebugCanvasResolution();
