@@ -1,7 +1,3 @@
-# Adaptive Layout for Unity
-
-A lightweight UI scaling solution that ensures consistent physical element size across different devices.
-
 ## Overview
 
 Unity's default UI scaling is based on screen resolution, which often leads to inconsistent UI sizes across devices.  
