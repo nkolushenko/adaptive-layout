@@ -1,0 +1,9 @@
+{
+  "name": "adaptive-layout",
+  "version": "1.0.0",
+  "displayName": "Adaptive layout module",
+  "author": {
+    "name": "Anastasia Kolushenko",
+    "email": "anastasiya.kolushenko@gmail.com"
+  }
+}
