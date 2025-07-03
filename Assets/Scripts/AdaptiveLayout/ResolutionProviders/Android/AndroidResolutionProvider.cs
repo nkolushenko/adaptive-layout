@@ -8,9 +8,16 @@ namespace AdaptiveLayout
         private const string JavaClassName = "com.adaptiveLayout.utils.PixelConverter";
         private const string MethodPixelsToDp = "pixelsToDp";
 
-        private static readonly AndroidJavaClass PixelConverterClass = new AndroidJavaClass(JavaClassName);
+        private static readonly AndroidJavaClass PixelConverterClass = new(JavaClassName);
+
+        private readonly ILogWrapper _logWrapper;
 
         private Vector2? _cached;
+
+        public AndroidResolutionProvider(ILogWrapper logWrapper)
+        {
+            _logWrapper = logWrapper;
+        }
 
         public Vector2 GetReferenceResolution()
         {
@@ -21,13 +28,14 @@ namespace AdaptiveLayout
 
             try
             {
-                int widthDp = PixelConverterClass.CallStatic<int>(MethodPixelsToDp, (float)Screen.width);
-                int heightDp = PixelConverterClass.CallStatic<int>(MethodPixelsToDp, (float)Screen.height);
+                var widthDp = PixelConverterClass.CallStatic<int>(MethodPixelsToDp, (float)Screen.width);
+                var heightDp = PixelConverterClass.CallStatic<int>(MethodPixelsToDp, (float)Screen.height);
+
                 _cached = new Vector2(widthDp, heightDp);
             }
             catch (AndroidJavaException e)
             {
-                Debug.LogError($"[AndroidResolutionProvider] JNI call failed: {e.Message}");
+                _logWrapper.LogError($"[AndroidResolutionProvider] JNI call failed: {e.Message}");
                 _cached = new Vector2(Screen.width, Screen.height);
             }
 

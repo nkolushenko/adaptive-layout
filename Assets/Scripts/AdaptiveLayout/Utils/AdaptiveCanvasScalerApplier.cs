@@ -7,44 +7,19 @@ namespace AdaptiveLayout
     public class AdaptiveCanvasScalerApplier : MonoBehaviour
     {
         [SerializeField] private CanvasScaler canvasScaler;
-        
-        private IResolutionProvider _resolutionProvider;
-// TODO: Replace with DI container injection (e.g., Zenject or VContainer)
-        private void Construct(IResolutionProvider resolutionProvider)
+
+        private IAdaptiveLayoutService _applier;
+
+        // TODO: Replace with DI container injection (e.g., Zenject or VContainer)
+        //[Inject]
+        private void Construct(IAdaptiveLayoutService applier)
         {
-            _resolutionProvider = resolutionProvider;
+            _applier = applier;
         }
-        
-        private void Awake()
-        {
-            IResolutionProviderFactory resolutionProviderFactory = new ResolutionProviderFactory();
-            var resolutionProvider = resolutionProviderFactory.Create();
-            Construct(resolutionProvider);
-        }
-        
+
         private void Start()
         {
-            canvasScaler.referenceResolution = _resolutionProvider.GetReferenceResolution();
+            _applier.Apply(canvasScaler);
         }
-
-#if UNITY_EDITOR
-        private void Update()
-        {
-            DebugCanvasResolution();
-        }
-
-        private void DebugCanvasResolution()
-        {
-            if (canvasScaler == null)
-            {
-                return;
-            }
-
-            var res = canvasScaler.referenceResolution;
-            Debug.Log($"[CanvasScaler Debug] Reference Resolution: {res.x} x {res.y}");
-        }
-#endif
     }
 }
-
-
